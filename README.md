@@ -1,5 +1,21 @@
 # BUDGET APP
 
+# Overview
+Welcome to our Budgeting App! This user-friendly application simplifies financial management by allowing users to plan budgets on a monthly, half-yearly, quarterly, or yearly basis. Track income and expenses effortlessly, gain insights into your financial health, and manage your income sources seamlessly. Take control of your budget and work towards your financial goals with ease
+
+# App Features
+## Navbar Efficiency: 
+Easily access income, expenses, and the "Add" button from the Navbar for quick financial insights.
+
+## Flexible Viewing:
+Customize your financial overview with a detailed table, allowing you to adjust periods such as monthly and half-yearly.
+
+## Visual Insights: 
+Gain a visual understanding of monthly spending patterns through an intuitive pie chart in the Expenses section.
+
+
+# How to Run The Project
+
 ## Step 1: Download the Project
 Go to the GitHub repository of the project.
 
