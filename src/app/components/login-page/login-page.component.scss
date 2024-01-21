@@ -1,0 +1,49 @@
+.head
+{
+    text-align: center;
+    color: black;
+    margin: 0 auto;
+}
+
+.form {
+    margin-top: 100px;
+
+    i {
+        color: black;
+    }
+
+    input {
+        background-color: transparent;
+        border-color: black;
+        font-weight: bold;
+        color: black;
+
+        &::placeholder {
+            color: black;
+        }
+    }
+
+    span,
+    button {
+        letter-spacing: 2px;
+        margin-top: 30px;
+    }
+
+    button {
+        margin: 30px 0 -10px 0;
+        border-color: black;
+        color: black;
+        background-color: transparent;
+    }
+
+    // &::ng-deep .p-dropdown{
+    //         width: 240px;
+    //         background-color: transparent;
+    //         border-color: white;
+    //         color: white;
+
+    //         .p-placeholder {
+    //             color: white;
+    //         }
+    // }
+}

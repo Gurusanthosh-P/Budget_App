@@ -1,0 +1,14 @@
+<div class="head">
+    <h1>Login</h1>
+</div>
+<div class="form align-items-center flex flex-column">
+    <span class="p-input-icon-left">
+        <i class="pi pi-user"></i>
+        <input type="text" placeholder="User Name" pInputText [(ngModel)]="username" id="">
+    </span>
+    <span class="p-input-icon-left">
+        <i class="pi pi-verified"></i>
+        <input type="password" placeholder="Password" [(ngModel)]="password" pInputText name="" id="">
+    </span>
+    <button pButton  (click)="login()" (window:keyUp.enter)="login()"  label="Login"></button>
+</div>

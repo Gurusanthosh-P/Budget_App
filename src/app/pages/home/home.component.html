@@ -1,0 +1,30 @@
+<div class="navbar">
+    <p-toolbar styleClass="glass-toolbar" >
+        <ng-template pTemplate="start">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2vrTv70BlJEdPCsSHh_xRnP8VK5MbHVyzYw&usqp=CAU" />
+        </ng-template>
+        <ng-template pTemplate="center">
+            <div class="flex">
+                <h1>Demo</h1>
+            </div>        
+        </ng-template>
+        <ng-template pTemplate="end">
+            <div class="navigation">
+                <h3 class="font-bold" (click)="show(navbar.income)">{{navbar.income}}</h3>
+                <h3 class="font-bold" (click)="show(navbar.expenses)">{{navbar.expenses}}</h3>
+                <h3 class="font-bold" (click)="show(navbar.add)">{{navbar.add}}</h3>
+                <h3 class="font-bold">{{navbar.logout}}</h3>
+            </div>
+        </ng-template>
+    </p-toolbar>
+</div>
+
+<div class="content" *ngIf="!titleAccess">
+    <h1>Budget wisely, live freely.</h1>
+</div>
+
+<app-income *ngIf="access=='income'"></app-income>
+<app-expenses *ngIf="access=='expenses'"></app-expenses>
+<app-add *ngIf="access=='form'"></app-add>
+
+

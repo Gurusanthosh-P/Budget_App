@@ -1,0 +1,24 @@
+<div class="form-container">
+    <div class="card-form">
+        <div class="head">
+            <h1>{{labelData.head}}</h1>
+        </div>
+        <span>
+            <p-dropdown [options]="Type" [(ngModel)]="selectedType" placeholder="Transaction Type" optionLabel="type" inputId="float-label"></p-dropdown>
+        </span>
+
+        <span>
+            <input pInputText [(ngModel)]="name" placeholder="{{labelData.Name}}" />
+        </span>
+
+        <span>
+            <p-inputNumber inputId="integeronly" [(ngModel)]="amount" placeholder="{{labelData.Amount}}"></p-inputNumber>
+        </span>
+
+        <span>
+            <p-dropdown [options]="Month" [(ngModel)]="selectedMonth" placeholder="Select a Month" optionLabel="month" inputId="float-label"></p-dropdown>
+        </span>
+
+        <button pButton (click)="postValue()" label="Submit"></button>
+    </div>
+</div>

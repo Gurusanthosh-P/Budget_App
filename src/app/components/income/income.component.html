@@ -1,0 +1,28 @@
+<div class="card">
+      <div class="body">
+          <p-table [value]="income" [columns]="incomeHeaderData" [scrollable]="true" scrollHeight="400px">
+            <ng-template pTemplate="caption">
+                <div class="flex ">
+                    <span class="heading">
+                        <h3>Income Details</h3>
+                    </span>
+                    <span class="ml-auto">
+                        <p-dropdown [options]="yearWiseDropDownData" [(ngModel)]="selectedPeriod" (ngModelChange)="onDropdownChange($event)" placeholder="Select the Period" optionLabel="period" inputId="float-label" ></p-dropdown>
+                    </span>
+                </div>
+            </ng-template>
+              <ng-template pTemplate="header" let-headerData>
+                  <tr>
+                      <th *ngFor="let head of headerData;let i=index" pSortableColumn="{{datakeys[i]}}" [style]="{ 'background-color': 'grey' }">{{head}}<p-sortIcon [field]="datakeys[i]" *ngIf="head"></p-sortIcon></th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-income>
+                  <tr>
+                      <td *ngFor="let key of datakeys">
+                          {{income[key]}}
+                      </td>
+                  </tr>
+              </ng-template>
+          </p-table>
+      </div>
+</div>
