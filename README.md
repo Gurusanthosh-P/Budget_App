@@ -1,4 +1,4 @@
-## BUDGET APP
+# BUDGET APP
 
 ## Step 1: Download the Project
 Go to the GitHub repository of the project.
