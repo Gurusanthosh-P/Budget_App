@@ -4,9 +4,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
-  {component:HomeComponent,path:'home'},
   {component:LoginComponent,path:'login'},
-  {component:HomeComponent,path:''}
+  {component:LoginComponent,path:''},
+  {component:HomeComponent,path:'home'},
+  {component:HomeComponent,path:'**',pathMatch:'full'}
 ];
 
 @NgModule({

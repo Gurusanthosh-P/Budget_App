@@ -4,7 +4,7 @@
             <h1>{{labelData.head}}</h1>
         </div>
         <span>
-            <p-dropdown [options]="Type" [(ngModel)]="selectedType" placeholder="Transaction Type" optionLabel="type" inputId="float-label"></p-dropdown>
+            <p-dropdown [options]="Type" [(ngModel)]="selectedPeriod" placeholder="Transaction Type" optionLabel="type" inputId="float-label" aria-required="true"></p-dropdown>
         </span>
 
         <span>
@@ -19,6 +19,6 @@
             <p-dropdown [options]="Month" [(ngModel)]="selectedMonth" placeholder="Select a Month" optionLabel="month" inputId="float-label"></p-dropdown>
         </span>
 
-        <button pButton (click)="postValue()" label="Submit"></button>
+        <button pButton (click)="getData()" label="Submit"></button>
     </div>
 </div>

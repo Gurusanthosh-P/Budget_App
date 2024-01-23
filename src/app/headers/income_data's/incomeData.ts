@@ -1,6 +1,6 @@
 export const  incomeHeaderData=['Month','Amount'];
 
-export const datakeys = ['name','income']
+export const datakeys = ['month','totalIncome']
 
 
 export const yearWiseDropDown = [

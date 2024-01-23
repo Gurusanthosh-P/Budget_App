@@ -1,10 +1,23 @@
-import { Component } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { HttpApiService } from 'src/app/services/http/httpApi.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+
+
+  constructor(){
+
+  }
+
+  ngOnInit(): void {
+  }
+
+  
 
 }

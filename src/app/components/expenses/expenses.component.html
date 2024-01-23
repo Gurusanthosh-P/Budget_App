@@ -4,12 +4,9 @@
       <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
     </div>
   
-    <div class="card-container">
-      <p-card header="Expenses Details" subheader="Monthly" [style]="{ width: '500px' }">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-          quas!
-        </p>
+    <div class="card-container" >
+      <p-card header="Expenses Details" subheader="{{selectedPeriod.period}}" [style]="{ width: '500px' }">
+        <h2>Money Matters!!,Manage Your Finances</h2>
         <ng-template pTemplate="footer">
           
         </ng-template>

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
 
 @Injectable({
@@ -6,19 +7,13 @@ import { MessageService } from 'primeng/api';
 })
 export class LoaderService {
 
-  loading:boolean=false
-  constructor(private messageService:MessageService) { }
+  constructor(private load:NgxSpinnerService) { }
 
   loadingShow(){
-    this.loading = true
-    this.messageService.add({severity:'info',summary:'Loading',detail:'Please wait....'})
+    this.load.show()
   }
   loadingHide(): void {
-    this.loading = false;
-    this.messageService.clear();
+    this.load.hide();
   }
 
-  isLoading(): boolean {
-    return this.loading;
-  }
 }

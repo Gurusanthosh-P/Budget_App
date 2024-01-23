@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import {FormsModule} from '@angular/forms'
+import {HttpClientModule} from '@angular/common/http'
 
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
@@ -15,6 +16,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { TableModule } from 'primeng/table';
 import { ChartModule } from 'primeng/chart';
 import { CardModule} from 'primeng/card'
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 
 
@@ -40,6 +43,7 @@ import { LoginPageComponent } from '../components/login-page/login-page.componen
   imports: [
     CommonModule,
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
     ToolbarModule,
@@ -50,7 +54,8 @@ import { LoginPageComponent } from '../components/login-page/login-page.componen
     InputNumberModule,
     TableModule,
     ChartModule,
-    CardModule
+    CardModule,
+    NgxSpinnerModule
   ]
 })
 export class SharedModule { }

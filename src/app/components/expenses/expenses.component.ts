@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { expenseDataKeys, expensesHeaderData } from 'src/app/headers/expenses_data/expenses';
 import { yearWiseDropDown } from 'src/app/headers/income_data\'s/incomeData';
+import { HttpApiService } from 'src/app/services/http/httpApi.service';
+import { LoaderService } from 'src/app/services/loader/loader.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-expenses',
@@ -9,122 +12,91 @@ import { yearWiseDropDown } from 'src/app/headers/income_data\'s/incomeData';
 })
 export class ExpensesComponent implements OnInit{
 
+    selectedPeriod:any = 'Annualy'
     piechartCheck:boolean = false
     yearWiseDropDownData = yearWiseDropDown
     expensesHeaderData = expensesHeaderData
     datakeys = expenseDataKeys
-    expense:any
+    expense:any 
     data: any;
     options: any;
-    selectedPeriod:any
+    MonthLabels:string[]=[]
 
-    constructor(){}
+    constructor(private httpService:HttpApiService,private loaderService:LoaderService){}
 
     ngOnInit() {
-        this.pichartData()
-        this.defalutDataForTable()
-    }
-
-    pichartData(){
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = getComputedStyle(document.documentElement).getPropertyValue('--pink-100').trim();
-
-        this.data = {
-            labels: ['Food', 'Rent', 'Vehicle'],
-            datasets: [
-                {
-                    data: [300, 50, 100],
-                    backgroundColor: [documentStyle.getPropertyValue('--pink-300'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-300')],
-                    hoverBackgroundColor: [documentStyle.getPropertyValue('--pink-300'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-300')]
-                }
-            ]
-        };
-
-
-        this.options = {
-            cutout: '60%',
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                }
-            }
-        };
-    }
-
-    defalutDataForTable(){
-      this.expense = [
-        {
-          month:'January',
-          amount:1345
-        },
-        {
-          month:'March',
-          amount:2345
-        }
-      ]
+      this.getUserExpenses(this.selectedPeriod)
     }
 
 
     onDropdownChange(selectedValue: any){
+        this.getUserExpenses(selectedValue)
         const check = selectedValue.period                
-        if(check == 'Monthly')
+        if(check)
         {            
             this.piechartCheck = true
         }
-        switch(selectedValue.period){
-            case 'Monthly':        
-              this.expense = [
-                {
-                  month:'January',
-                  amount:1345
-                },
-                {
-                  month:'March',
-                  amount:2345
-                }
-              ]
-              break;
-              case 'Quarterly':
-                this.piechartCheck = false
-                this.expense = [
-                  {
-                    month:'March',
-                    amount:12342,
-                  }
-                ]
-                break;
-              case 'Half-yearly':
-                this.piechartCheck = false
-                this.expense = [
-                  {
-                    month:'January',
-                    amount:12342,
-                  },
-                  {
-                    month:'March',
-                    amount:12342,
-                  },
-                  {
-                    month:'January',
-                    amount:12342,
-                  }
-                ]
-                break;
-              case 'Annually':
-                this.piechartCheck = false
-                this.expense = [
-                  {
-                    month:'January',
-                    amount:12342,
-                  }
-                ]
-                break;
-              default:
-                break
-      
-          }
     }
+
+    getUserExpenses(selectedValue:any){
+      this.loaderService?.loadingShow()
+      const userId = localStorage.getItem('userid')      
+      this.httpService.getExpenses(userId,selectedValue).subscribe({
+        next:(response:any)=>{
+          this.loaderService?.loadingHide()
+          this.expense = response
+          this.pichartData(response)
+        },
+        error:(error:any)=>{
+        this.loaderService?.loadingHide()
+          Swal.fire(error?.name,error?.name,'error')
+        }
+      })
+    }
+
+    pichartData(response:any){
+      
+      const documentStyle = getComputedStyle(document.documentElement);
+      const textColor = 'white';
+
+      const months = response.map((item: any) => item.month);
+      const totalExpenses = response.map((item: any) => item.totalExpense);
+
+      const numDataPoints = response.length;
+
+      const backgroundColors = Array.from({ length: numDataPoints }, (_, index) => {
+        const colors = [
+          '--pink-300', '--yellow-500', '--green-300', '--blue-400', '--purple-300',
+          '--orange-400', '--teal-300', '--red-400', '--indigo-300', '--cyan-400',
+          '--amber-300', '--lime-400'
+        ];
+      
+        return documentStyle.getPropertyValue(colors[index % colors.length]).trim();
+      });
+
+
+      this.data = {
+          labels: months,
+          datasets: [
+              {
+                  data: totalExpenses,
+                  backgroundColor: backgroundColors,
+                  hoverBackgroundColor: [documentStyle.getPropertyValue('--pink-300'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-300')]
+              }
+          ]
+      };
+
+
+      this.options = {
+          cutout: '60%',
+          plugins: {
+              legend: {
+                  labels: {
+                      color: textColor,
+                  }
+              }
+          }
+      };
+  }
 
 }

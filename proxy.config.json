@@ -1,0 +1,10 @@
+{
+  "/api/*": {
+    "target": "https://a4f2-103-84-178-185.ngrok-free.app",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api/getUsers": "/api/budget/getUsers"
+    }
+  }
+}

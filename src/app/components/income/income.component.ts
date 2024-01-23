@@ -1,5 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { datakeys, incomeHeaderData, yearWiseDropDown } from 'src/app/headers/income_data\'s/incomeData';
+import { HttpApiService } from 'src/app/services/http/httpApi.service';
+import { LoaderService } from 'src/app/services/loader/loader.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-income',
@@ -13,102 +17,34 @@ export class IncomeComponent implements OnInit{
   datakeys = datakeys
   yearWiseDropDownData = yearWiseDropDown
   income:any
-  selectedPeriod:any
+  selectedPeriod:any = 'Annualy'
   filteredIncome: any;
   
-  constructor(){
+  constructor(private httpService:HttpApiService,private http:HttpClient,private loaderSerivice:LoaderService){
 
   }
   
   ngOnInit(): void {
-    this.demovalueAssign()
+    this.getUserIncome(this.selectedPeriod)
   }
 
 
-  demovalueAssign(){
-    this.income = [
-      {
-        name:'santhosh',
-        income:12342,
-        expenses:1234
+  onDropdownChange(selectedValue: any) { 
+    this.getUserIncome(selectedValue)     
+  }
+
+  getUserIncome(selectedValue:any){
+    this.loaderSerivice?.loadingShow()
+    const userId = localStorage?.getItem('userid')      
+    this.httpService.getIncome(userId,selectedValue).subscribe({
+      next:(response:any)=>{
+        this.income = response
+        this.loaderSerivice?.loadingHide()
       },
-      {
-        name:'abanthosh',
-        income:12342,
-        expenses:1234
-      },
-      {
-        name:'santhosh',
-        income:12342,
-        expenses:1234
-      },
-      {
-        name:'santhosh',
-        income:12342,
-        expenses:1234
+      error:(error:any)=>{
+        this.loaderSerivice?.loadingHide()
+        Swal.fire(error?.name,error?.name,'error')
       }
-    ]
-  }
-
-  onDropdownChange(selectedValue: any) {    
-    switch(selectedValue.period){
-      case 'Monthly':        
-        this.income = [
-          {
-            name:'santhosh',
-            income:12342,
-            expenses:1234
-          },
-          {
-            name:'abanthosh',
-            income:12342,
-            expenses:1234
-          }
-        ]
-        break;
-        case 'Quarterly':
-          this.income = [
-            {
-              name:'abanthosh',
-              income:12342,
-              expenses:1234
-            }
-          ]
-          break;
-        case 'Half-yearly':
-          this.income = [
-            {
-              name:'santhosh',
-              income:12342,
-              expenses:1234
-            },
-            {
-              name:'abanthosh',
-              income:12342,
-              expenses:1234
-            },
-            {
-              name:'santhosh',
-              income:12342,
-              expenses:1234
-            }
-          ]
-          break;
-        case 'Annually':
-          this.income = [
-            {
-              name:'santhosh',
-              income:12342,
-              expenses:1234
-            }
-          ]
-          break;
-        default:
-          break
-
-    }
-
-  
-  
+    })
   }
 }
